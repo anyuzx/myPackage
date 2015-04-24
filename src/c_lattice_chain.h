@@ -1,0 +1,1 @@
+void c_lattice_chain(double* chain, int N, double l0, int ve, int t);
