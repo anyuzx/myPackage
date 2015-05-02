@@ -277,9 +277,9 @@ class dump:
                 if len(line.split()) == 3:
                     snap.boundary = []
                 else:
-                    snap.boundary = line.split()[3:-1]
+                    snap.boundary = line.split()[3:]
             elif i == 8:
-                snap.descriptor = line.split()[2:-1]
+                snap.descriptor = line.split()[2:]
             elif i == 1:
                 snap.time = int(line.split()[0])
             elif i == 8 + snap.natoms:

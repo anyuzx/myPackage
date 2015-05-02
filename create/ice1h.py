@@ -77,10 +77,40 @@ def makeOxygen(a,dim1,dim2,dim3):
 # this means o1 and o2 are one pair,o3 and o4 are one pair and so on.
 def getbond(oxygen,a,dim1,dim2,dim3):
     # distance is calculated using myPackage.basic_tools.pdist with periodic boundary condition
-    dist = dist.pdist(oxygen,pc=[dim1*(2*np.sqrt(6)*a/3),(dim2)*(2*a*np.sqrt(2)),(8.0/3.0)*a*dim3])
-    temp = np.where(np.abs(dist - a) < 0.01)
+    distance = dist.pdist(oxygen,pc=[dim1*(2*np.sqrt(6)*a/3),(dim2)*(2*a*np.sqrt(2)),(8.0/3.0)*a*dim3])
+    temp = np.where(np.abs(distance - a) < 0.01)
     bonds = np.dstack((temp[0],temp[1]))[0]
     return bonds
+
+# ---------------------------------------
+# this function calculate the dipole moment for one molucule
+def caldipole(molucule,q,box):
+    oxygen = molucule[0]
+    hydrogen1 = molucule[1]
+    hydrogen2 = molucule[2]
+
+    x_size = np.abs(box[0,0] - box[0,1])
+    y_size = np.abs(box[1,0] - box[1,1])
+    z_size = np.abs(box[2,0] - box[2,1])
+
+    dx1 = hydrogen1[0] - oxygen[0]
+    dy1 = hydrogen1[1] - oxygen[1]
+    dz1 = hydrogen1[2] - oxygen[2]
+
+    dx2 = hydrogen2[0] - oxygen[0]
+    dy2 = hydrogen2[1] - oxygen[1]
+    dz2 = hydrogen2[2] - oxygen[2]
+
+    if np.abs(dx1) > x_size * 0.5: dx1 = -dx1*(x_size/np.abs(dx1)-1)
+    if np.abs(dy1) > y_size * 0.5: dy1 = -dy1*(y_size/np.abs(dy1)-1)
+    if np.abs(dz1) > z_size * 0.5: dz1 = -dz1*(z_size/np.abs(dz1)-1)
+
+    if np.abs(dx2) > x_size * 0.5: dx2 = -dx2*(x_size/np.abs(dx2)-1)
+    if np.abs(dy2) > y_size * 0.5: dy2 = -dy2*(y_size/np.abs(dy2)-1)
+    if np.abs(dz2) > z_size * 0.5: dz2 = -dz2*(z_size/np.abs(dz2)-1)
+
+    return np.array([dx1 + dx2, dy1 + dy2, dz1 + dz2])*(q/2.0)
+
 
 # ---------------------------------------
 # this function put all hydrogen on each o-o bond
@@ -246,6 +276,12 @@ class ice1h:
         self.ice1h_config = ice1h_config
         self.box = box
         return self.ice1h_config,self.box
+
+    def give_netDipole(self):
+        self.netDipole = np.array([0.0,0.0,0.0])
+        for molecule in self.ice1h_config:
+            self.netDipole += caldipole(molecule,0.8476,self.box)
+        return self.netDipole
 
     def plot(self,bond=False):
         # import matplotlib package
