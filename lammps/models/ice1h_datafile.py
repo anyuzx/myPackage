@@ -1,5 +1,5 @@
 from math import *
-from .. import create
+from ... import create
 import numpy as np
 
 
@@ -15,11 +15,12 @@ def writefile(foutname,*argv,**kwargs):
     ice = create.ice1h(*argv,**kwargs)
     N = argv[2]*argv[3]*argv[4]*8
     water,box_dimension = ice.create_ice1h()
+    dipole = ice.give_netDipole()
     mass = np.array([16.0000,1.0008])
     q = np.array([-0.8476,0.4238])
 
     with open(foutname,'w') as f:
-        f.write('Data file for SPC/E ideal disordered ice 1h config\n')
+        f.write('Data file for SPC/E ideal disordered ice 1h config. Net dipole moment: ' + '{:.5}  {:.5}  {:.5}'.format(dipole[0],dipole[1],dipole[2])+'\n')
         f.write(str(N*3)+'  atoms   # number of atoms\n')
         f.write(str(N*2)+'  bonds   # number of bonds between atoms\n')
         f.write(str(N)+'  angles   # number of bond angles\n')

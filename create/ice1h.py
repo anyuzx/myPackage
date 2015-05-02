@@ -251,8 +251,10 @@ class ice1h:
 
                 temp_min = np.min(ice1h_config[:,:,dim].flatten())
                 temp_max = np.max(ice1h_config[:,:,dim].flatten())
-                box[dim,0] = temp_min - 10.0
-                box[dim,1] = temp_max + 10.0
+                # change the box size along the interface direction. box needs to be big enough for atoms not feeling
+                # interaction along that direction. 
+                box[dim,0] = temp_min - (temp_max - temp_min)*2
+                box[dim,1] = temp_max + (temp_max - temp_min)*2
             
             # correct the coordinate of hydrogen for periodic connected direction
             for i in range(len(ice1h_config)):
