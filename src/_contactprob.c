@@ -952,9 +952,9 @@ static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
-
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
+
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1156,7 +1156,7 @@ static char __pyx_k_contact_lst[] = "contact_lst";
 static char __pyx_k_contactprob[] = "_contactprob";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static char __pyx_k_Users_Shi_Documents_Academic_Do[] = "/Users/Shi/Documents/Academic_Document/code/myPackage_v2/src/_contactprob.pyx";
+static char __pyx_k_Users_Shi_Documents_Academic_Do[] = "/Users/Shi/Documents/Academic_Document/code/myPackage/src/_contactprob.pyx";
 static char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
@@ -1291,7 +1291,7 @@ static PyObject *__pyx_pf_12_contactprob_cp(CYTHON_UNUSED PyObject *__pyx_self, 
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyArrayObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
+  long __pyx_t_6;
   int __pyx_t_7;
   int __pyx_t_8;
   int __pyx_t_9;
@@ -1299,7 +1299,7 @@ static PyObject *__pyx_pf_12_contactprob_cp(CYTHON_UNUSED PyObject *__pyx_self, 
   int __pyx_t_11;
   int __pyx_t_12;
   int __pyx_t_13;
-  int __pyx_t_14;
+  long __pyx_t_14;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1332,7 +1332,7 @@ static PyObject *__pyx_pf_12_contactprob_cp(CYTHON_UNUSED PyObject *__pyx_self, 
  * 
  * 	cdef np.ndarray[DTYPE_t,ndim=1] contact_lst = np.zeros(N-1,dtype=DTYPE)             # <<<<<<<<<<<<<<
  * 	cdef int i,j,k
- * 	for i in xrange(N):
+ * 	for i in xrange(N-1):
  */
   __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
@@ -1374,30 +1374,30 @@ static PyObject *__pyx_pf_12_contactprob_cp(CYTHON_UNUSED PyObject *__pyx_self, 
   /* "_contactprob.pyx":16
  * 	cdef np.ndarray[DTYPE_t,ndim=1] contact_lst = np.zeros(N-1,dtype=DTYPE)
  * 	cdef int i,j,k
- * 	for i in xrange(N):             # <<<<<<<<<<<<<<
- * 		for j in xrange(i,N):
+ * 	for i in xrange(N-1):             # <<<<<<<<<<<<<<
+ * 		for j in xrange(i+1,N):
  * 			if D[j,i] <= rc:
  */
-  __pyx_t_6 = __pyx_v_N;
+  __pyx_t_6 = (__pyx_v_N - 1);
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
     /* "_contactprob.pyx":17
  * 	cdef int i,j,k
- * 	for i in xrange(N):
- * 		for j in xrange(i,N):             # <<<<<<<<<<<<<<
+ * 	for i in xrange(N-1):
+ * 		for j in xrange(i+1,N):             # <<<<<<<<<<<<<<
  * 			if D[j,i] <= rc:
- * 				contact_lst[j-i] += 1.0/(N-(j-i))
+ * 				contact_lst[j-i-1] += 1.0/(N-(j-i))
  */
     __pyx_t_8 = __pyx_v_N;
-    for (__pyx_t_9 = __pyx_v_i; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
+    for (__pyx_t_9 = (__pyx_v_i + 1); __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
       __pyx_v_j = __pyx_t_9;
 
       /* "_contactprob.pyx":18
- * 	for i in xrange(N):
- * 		for j in xrange(i,N):
+ * 	for i in xrange(N-1):
+ * 		for j in xrange(i+1,N):
  * 			if D[j,i] <= rc:             # <<<<<<<<<<<<<<
- * 				contact_lst[j-i] += 1.0/(N-(j-i))
+ * 				contact_lst[j-i-1] += 1.0/(N-(j-i))
  * 
  */
       __pyx_t_10 = __pyx_v_j;
@@ -1406,9 +1406,9 @@ static PyObject *__pyx_pf_12_contactprob_cp(CYTHON_UNUSED PyObject *__pyx_self, 
       if (__pyx_t_12) {
 
         /* "_contactprob.pyx":19
- * 		for j in xrange(i,N):
+ * 		for j in xrange(i+1,N):
  * 			if D[j,i] <= rc:
- * 				contact_lst[j-i] += 1.0/(N-(j-i))             # <<<<<<<<<<<<<<
+ * 				contact_lst[j-i-1] += 1.0/(N-(j-i))             # <<<<<<<<<<<<<<
  * 
  * 	return contact_lst
  */
@@ -1423,7 +1423,7 @@ static PyObject *__pyx_pf_12_contactprob_cp(CYTHON_UNUSED PyObject *__pyx_self, 
           #endif
           {__pyx_filename = __pyx_f[0]; __pyx_lineno = 19; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
-        __pyx_t_14 = (__pyx_v_j - __pyx_v_i);
+        __pyx_t_14 = ((__pyx_v_j - __pyx_v_i) - 1);
         *__Pyx_BufPtrStrided1d(__pyx_t_12_contactprob_DTYPE_t *, __pyx_pybuffernd_contact_lst.rcbuffer->pybuffer.buf, __pyx_t_14, __pyx_pybuffernd_contact_lst.diminfo[0].strides) += (1.0 / __pyx_t_13);
         goto __pyx_L7;
       }
@@ -1432,7 +1432,7 @@ static PyObject *__pyx_pf_12_contactprob_cp(CYTHON_UNUSED PyObject *__pyx_self, 
   }
 
   /* "_contactprob.pyx":21
- * 				contact_lst[j-i] += 1.0/(N-(j-i))
+ * 				contact_lst[j-i-1] += 1.0/(N-(j-i))
  * 
  * 	return contact_lst             # <<<<<<<<<<<<<<
  */
@@ -5088,32 +5088,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     }
 }
 
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
-    const int neg_one = (int) -1, const_zero = 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(int) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-        } else if (sizeof(int) <= sizeof(unsigned long long)) {
-            return PyLong_FromUnsignedLongLong((unsigned long long) value);
-        }
-    } else {
-        if (sizeof(int) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(int) <= sizeof(long long)) {
-            return PyLong_FromLongLong((long long) value);
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(int),
-                                     little, !is_unsigned);
-    }
-}
-
 #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)       \
     {                                                                     \
         func_type value = func_value;                                     \
@@ -5228,6 +5202,32 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to int");
     return (int) -1;
+}
+
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+    const int neg_one = (int) -1, const_zero = 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(int) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(int) <= sizeof(unsigned long long)) {
+            return PyLong_FromUnsignedLongLong((unsigned long long) value);
+        }
+    } else {
+        if (sizeof(int) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(int) <= sizeof(long long)) {
+            return PyLong_FromLongLong((long long) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(int),
+                                     little, !is_unsigned);
+    }
 }
 
 #if CYTHON_CCOMPLEX

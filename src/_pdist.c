@@ -952,9 +952,9 @@ static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
-static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
-
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
+
+static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
@@ -1160,7 +1160,7 @@ static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_pdistwithpc[] = "pdistwithpc";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static char __pyx_k_Users_Shi_Documents_Academic_Do[] = "/Users/Shi/Documents/Academic_Document/code/myPackage_v2/src/_pdist.pyx";
+static char __pyx_k_Users_Shi_Documents_Academic_Do[] = "/Users/Shi/Documents/Academic_Document/code/myPackage/src/_pdist.pyx";
 static char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
@@ -1260,7 +1260,7 @@ static PyObject *__pyx_pf_6_pdist_pdist(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyArrayObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
+  long __pyx_t_6;
   int __pyx_t_7;
   int __pyx_t_8;
   int __pyx_t_9;
@@ -1363,17 +1363,17 @@ static PyObject *__pyx_pf_6_pdist_pdist(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   /* "_pdist.pyx":19
  * 	cdef DTYPE_t tmp,d
  * 	cdef int i,j,k
- * 	for i in xrange(N):             # <<<<<<<<<<<<<<
+ * 	for i in xrange(N-1):             # <<<<<<<<<<<<<<
  * 		for j in xrange(i+1,N):
  * 			d = 0.0
  */
-  __pyx_t_6 = __pyx_v_N;
+  __pyx_t_6 = (__pyx_v_N - 1);
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
     /* "_pdist.pyx":20
  * 	cdef int i,j,k
- * 	for i in xrange(N):
+ * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):             # <<<<<<<<<<<<<<
  * 			d = 0.0
  * 			for k in range(dim):
@@ -1383,7 +1383,7 @@ static PyObject *__pyx_pf_6_pdist_pdist(CYTHON_UNUSED PyObject *__pyx_self, PyAr
       __pyx_v_j = __pyx_t_9;
 
       /* "_pdist.pyx":21
- * 	for i in xrange(N):
+ * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):
  * 			d = 0.0             # <<<<<<<<<<<<<<
  * 			for k in range(dim):
@@ -1580,7 +1580,7 @@ static PyObject *__pyx_pf_6_pdist_2pdistwithpc(CYTHON_UNUSED PyObject *__pyx_sel
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyArrayObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
+  long __pyx_t_6;
   int __pyx_t_7;
   int __pyx_t_8;
   int __pyx_t_9;
@@ -1697,17 +1697,17 @@ static PyObject *__pyx_pf_6_pdist_2pdistwithpc(CYTHON_UNUSED PyObject *__pyx_sel
   /* "_pdist.pyx":38
  * 	cdef DTYPE_t tmp,d
  * 	cdef int i,j,k
- * 	for i in xrange(N):             # <<<<<<<<<<<<<<
+ * 	for i in xrange(N-1):             # <<<<<<<<<<<<<<
  * 		for j in xrange(i+1,N):
  * 			d = 0.0
  */
-  __pyx_t_6 = __pyx_v_N;
+  __pyx_t_6 = (__pyx_v_N - 1);
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
     __pyx_v_i = __pyx_t_7;
 
     /* "_pdist.pyx":39
  * 	cdef int i,j,k
- * 	for i in xrange(N):
+ * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):             # <<<<<<<<<<<<<<
  * 			d = 0.0
  * 			for k in range(dim):
@@ -1717,7 +1717,7 @@ static PyObject *__pyx_pf_6_pdist_2pdistwithpc(CYTHON_UNUSED PyObject *__pyx_sel
       __pyx_v_j = __pyx_t_9;
 
       /* "_pdist.pyx":40
- * 	for i in xrange(N):
+ * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):
  * 			d = 0.0             # <<<<<<<<<<<<<<
  * 			for k in range(dim):
@@ -5487,6 +5487,32 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
     }
 }
 
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+    const long neg_one = (long) -1, const_zero = 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(long) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(long) <= sizeof(unsigned long long)) {
+            return PyLong_FromUnsignedLongLong((unsigned long long) value);
+        }
+    } else {
+        if (sizeof(long) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(long) <= sizeof(long long)) {
+            return PyLong_FromLongLong((long long) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(long),
+                                     little, !is_unsigned);
+    }
+}
+
 #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)       \
     {                                                                     \
         func_type value = func_value;                                     \
@@ -5601,32 +5627,6 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to int");
     return (int) -1;
-}
-
-static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
-    const long neg_one = (long) -1, const_zero = 0;
-    const int is_unsigned = neg_one > const_zero;
-    if (is_unsigned) {
-        if (sizeof(long) < sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long)) {
-            return PyLong_FromUnsignedLong((unsigned long) value);
-        } else if (sizeof(long) <= sizeof(unsigned long long)) {
-            return PyLong_FromUnsignedLongLong((unsigned long long) value);
-        }
-    } else {
-        if (sizeof(long) <= sizeof(long)) {
-            return PyInt_FromLong((long) value);
-        } else if (sizeof(long) <= sizeof(long long)) {
-            return PyLong_FromLongLong((long long) value);
-        }
-    }
-    {
-        int one = 1; int little = (int)*(unsigned char *)&one;
-        unsigned char *bytes = (unsigned char *)&value;
-        return _PyLong_FromByteArray(bytes, sizeof(long),
-                                     little, !is_unsigned);
-    }
 }
 
 #if CYTHON_CCOMPLEX

@@ -1161,7 +1161,7 @@ static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_cdistwithpc[] = "cdistwithpc";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static char __pyx_k_Users_Shi_Documents_Academic_Do[] = "/Users/Shi/Documents/Academic_Document/code/myPackage_v2/src/_cdist.pyx";
+static char __pyx_k_Users_Shi_Documents_Academic_Do[] = "/Users/Shi/Documents/Academic_Document/code/myPackage/src/_cdist.pyx";
 static char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
@@ -1477,7 +1477,7 @@ static PyObject *__pyx_pf_6_cdist_cdist(CYTHON_UNUSED PyObject *__pyx_self, PyAr
  * 			for k in range(dim):
  * 				tmp = A[i,k] - B[j,k]             # <<<<<<<<<<<<<<
  * 				d += tmp * tmp
- * 			D[j,i] = sqrt(d)
+ * 			D[i,j] = sqrt(d)
  */
         __pyx_t_12 = __pyx_v_i;
         __pyx_t_13 = __pyx_v_k;
@@ -1489,7 +1489,7 @@ static PyObject *__pyx_pf_6_cdist_cdist(CYTHON_UNUSED PyObject *__pyx_self, PyAr
  * 			for k in range(dim):
  * 				tmp = A[i,k] - B[j,k]
  * 				d += tmp * tmp             # <<<<<<<<<<<<<<
- * 			D[j,i] = sqrt(d)
+ * 			D[i,j] = sqrt(d)
  * 
  */
         __pyx_v_d = (__pyx_v_d + (__pyx_v_tmp * __pyx_v_tmp));
@@ -1498,18 +1498,18 @@ static PyObject *__pyx_pf_6_cdist_cdist(CYTHON_UNUSED PyObject *__pyx_self, PyAr
       /* "_cdist.pyx":25
  * 				tmp = A[i,k] - B[j,k]
  * 				d += tmp * tmp
- * 			D[j,i] = sqrt(d)             # <<<<<<<<<<<<<<
+ * 			D[i,j] = sqrt(d)             # <<<<<<<<<<<<<<
  * 
  * 	return D
  */
-      __pyx_t_10 = __pyx_v_j;
-      __pyx_t_11 = __pyx_v_i;
+      __pyx_t_10 = __pyx_v_i;
+      __pyx_t_11 = __pyx_v_j;
       *__Pyx_BufPtrStrided2d(__pyx_t_6_cdist_DTYPE_t *, __pyx_pybuffernd_D.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_D.diminfo[0].strides, __pyx_t_11, __pyx_pybuffernd_D.diminfo[1].strides) = sqrt(__pyx_v_d);
     }
   }
 
   /* "_cdist.pyx":27
- * 			D[j,i] = sqrt(d)
+ * 			D[i,j] = sqrt(d)
  * 
  * 	return D             # <<<<<<<<<<<<<<
  * 
@@ -1857,7 +1857,7 @@ static PyObject *__pyx_pf_6_cdist_2cdistwithpc(CYTHON_UNUSED PyObject *__pyx_sel
  * 				tmp = A[i,k] - B[j,k]
  * 				if fabs(tmp) >= BOX[k]*0.5: tmp = -tmp*(BOX[k]/fabs(tmp)-1)             # <<<<<<<<<<<<<<
  * 				d += tmp * tmp
- * 			D[j,i] = sqrt(d)
+ * 			D[i,j] = sqrt(d)
  */
         __pyx_t_16 = __pyx_v_k;
         __pyx_t_17 = ((fabs(__pyx_v_tmp) >= ((*__Pyx_BufPtrStrided1d(__pyx_t_6_cdist_DTYPE_t *, __pyx_pybuffernd_BOX.rcbuffer->pybuffer.buf, __pyx_t_16, __pyx_pybuffernd_BOX.diminfo[0].strides)) * 0.5)) != 0);
@@ -1884,7 +1884,7 @@ static PyObject *__pyx_pf_6_cdist_2cdistwithpc(CYTHON_UNUSED PyObject *__pyx_sel
  * 				tmp = A[i,k] - B[j,k]
  * 				if fabs(tmp) >= BOX[k]*0.5: tmp = -tmp*(BOX[k]/fabs(tmp)-1)
  * 				d += tmp * tmp             # <<<<<<<<<<<<<<
- * 			D[j,i] = sqrt(d)
+ * 			D[i,j] = sqrt(d)
  * 
  */
         __pyx_v_d = (__pyx_v_d + (__pyx_v_tmp * __pyx_v_tmp));
@@ -1893,18 +1893,18 @@ static PyObject *__pyx_pf_6_cdist_2cdistwithpc(CYTHON_UNUSED PyObject *__pyx_sel
       /* "_cdist.pyx":46
  * 				if fabs(tmp) >= BOX[k]*0.5: tmp = -tmp*(BOX[k]/fabs(tmp)-1)
  * 				d += tmp * tmp
- * 			D[j,i] = sqrt(d)             # <<<<<<<<<<<<<<
+ * 			D[i,j] = sqrt(d)             # <<<<<<<<<<<<<<
  * 
  * 	return D
  */
-      __pyx_t_10 = __pyx_v_j;
-      __pyx_t_11 = __pyx_v_i;
+      __pyx_t_10 = __pyx_v_i;
+      __pyx_t_11 = __pyx_v_j;
       *__Pyx_BufPtrStrided2d(__pyx_t_6_cdist_DTYPE_t *, __pyx_pybuffernd_D.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_D.diminfo[0].strides, __pyx_t_11, __pyx_pybuffernd_D.diminfo[1].strides) = sqrt(__pyx_v_d);
     }
   }
 
   /* "_cdist.pyx":48
- * 			D[j,i] = sqrt(d)
+ * 			D[i,j] = sqrt(d)
  * 
  * 	return D             # <<<<<<<<<<<<<<
  */

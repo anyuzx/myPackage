@@ -696,7 +696,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "_hbond.pyx":9
+/* "_hbond.pyx":8
  * DTYPE1 = np.float32
  * DTYPE2 = np.int32
  * ctypedef np.float32_t DTYPE1_t             # <<<<<<<<<<<<<<
@@ -705,12 +705,12 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
  */
 typedef __pyx_t_5numpy_float32_t __pyx_t_6_hbond_DTYPE1_t;
 
-/* "_hbond.pyx":10
+/* "_hbond.pyx":9
  * DTYPE2 = np.int32
  * ctypedef np.float32_t DTYPE1_t
  * ctypedef np.int32_t DTYPE2_t             # <<<<<<<<<<<<<<
  * 
- * '''
+ * 
  */
 typedef __pyx_t_5numpy_int32_t __pyx_t_6_hbond_DTYPE2_t;
 #if CYTHON_CCOMPLEX
@@ -1124,7 +1124,7 @@ static PyObject *__pyx_builtin_xrange;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
-static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_BOX); /* proto */
+static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_BOX, double __pyx_v_r_c, double __pyx_v_cos_angle_c); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static char __pyx_k_B[] = "B";
@@ -1154,6 +1154,7 @@ static char __pyx_k_dy[] = "dy";
 static char __pyx_k_dz[] = "dz";
 static char __pyx_k_np[] = "np";
 static char __pyx_k_BOX[] = "BOX";
+static char __pyx_k_r_c[] = "r_c";
 static char __pyx_k_roo[] = "roo";
 static char __pyx_k_tmp[] = "tmp";
 static char __pyx_k_main[] = "__main__";
@@ -1176,6 +1177,7 @@ static char __pyx_k_neighbors[] = "neighbors";
 static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_roh_vector[] = "roh_vector";
 static char __pyx_k_roo_vector[] = "roo_vector";
+static char __pyx_k_cos_angle_c[] = "cos_angle_c";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static char __pyx_k_Users_Shi_Documents_Academic_Do[] = "/Users/Shi/Documents/Academic_Document/code/myPackage/src/_hbond.pyx";
@@ -1196,6 +1198,7 @@ static PyObject *__pyx_kp_s_Users_Shi_Documents_Academic_Do;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_X;
 static PyObject *__pyx_n_s_cos_angle;
+static PyObject *__pyx_n_s_cos_angle_c;
 static PyObject *__pyx_n_s_d;
 static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_dx;
@@ -1217,6 +1220,7 @@ static PyObject *__pyx_n_s_neighbors;
 static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_n_s_p;
+static PyObject *__pyx_n_s_r_c;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_roh_vector;
 static PyObject *__pyx_n_s_roo;
@@ -1238,10 +1242,10 @@ static PyObject *__pyx_tuple__8;
 static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_codeobj__10;
 
-/* "_hbond.pyx":31
+/* "_hbond.pyx":14
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX):             # <<<<<<<<<<<<<<
+ * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX, double r_c, double cos_angle_c):             # <<<<<<<<<<<<<<
  * 	# the function takes a numpy array
  * 	# stores coordinates of all atoms
  */
@@ -1252,6 +1256,8 @@ static PyMethodDef __pyx_mdef_6_hbond_1hbond = {"hbond", (PyCFunction)__pyx_pw_6
 static PyObject *__pyx_pw_6_hbond_1hbond(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_X = 0;
   PyArrayObject *__pyx_v_BOX = 0;
+  double __pyx_v_r_c;
+  double __pyx_v_cos_angle_c;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -1259,12 +1265,14 @@ static PyObject *__pyx_pw_6_hbond_1hbond(PyObject *__pyx_self, PyObject *__pyx_a
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("hbond (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_X,&__pyx_n_s_BOX,0};
-    PyObject* values[2] = {0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_X,&__pyx_n_s_BOX,&__pyx_n_s_r_c,&__pyx_n_s_cos_angle_c,0};
+    PyObject* values[4] = {0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
         case  0: break;
@@ -1278,32 +1286,46 @@ static PyObject *__pyx_pw_6_hbond_1hbond(PyObject *__pyx_self, PyObject *__pyx_a
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_BOX)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("hbond", 1, 2, 2, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("hbond", 1, 4, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_r_c)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("hbond", 1, 4, 4, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_cos_angle_c)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("hbond", 1, 4, 4, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "hbond") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "hbond") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 4) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
     }
     __pyx_v_X = ((PyArrayObject *)values[0]);
     __pyx_v_BOX = ((PyArrayObject *)values[1]);
+    __pyx_v_r_c = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_r_c == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_cos_angle_c = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_cos_angle_c == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("hbond", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("hbond", 1, 4, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("_hbond.hbond", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_BOX), __pyx_ptype_5numpy_ndarray, 1, "BOX", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_6_hbond_hbond(__pyx_self, __pyx_v_X, __pyx_v_BOX);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_BOX), __pyx_ptype_5numpy_ndarray, 1, "BOX", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_6_hbond_hbond(__pyx_self, __pyx_v_X, __pyx_v_BOX, __pyx_v_r_c, __pyx_v_cos_angle_c);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1314,7 +1336,7 @@ static PyObject *__pyx_pw_6_hbond_1hbond(PyObject *__pyx_self, PyObject *__pyx_a
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_BOX) {
+static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_BOX, double __pyx_v_r_c, double __pyx_v_cos_angle_c) {
   int __pyx_v_N;
   PyArrayObject *__pyx_v_hbond_lst = 0;
   PyArrayObject *__pyx_v_neighbors = 0;
@@ -1472,17 +1494,17 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   __pyx_pybuffernd_BOX.rcbuffer = &__pyx_pybuffer_BOX;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_X.rcbuffer->pybuffer, (PyObject*)__pyx_v_X, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE1_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_X.rcbuffer->pybuffer, (PyObject*)__pyx_v_X, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE1_t, PyBUF_FORMAT| PyBUF_STRIDES, 3, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1]; __pyx_pybuffernd_X.diminfo[2].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[2]; __pyx_pybuffernd_X.diminfo[2].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[2];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_BOX.rcbuffer->pybuffer, (PyObject*)__pyx_v_BOX, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE1_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_BOX.rcbuffer->pybuffer, (PyObject*)__pyx_v_BOX, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE1_t, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_BOX.diminfo[0].strides = __pyx_pybuffernd_BOX.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_BOX.diminfo[0].shape = __pyx_pybuffernd_BOX.rcbuffer->pybuffer.shape[0];
 
-  /* "_hbond.pyx":38
- * 	# the order of atoms need to be oxygen,hydrogen,hydrogen
+  /* "_hbond.pyx":24
+ * 	# cos_angle_c: the cosine angle criterion for counting hydrogen bonds
  * 
  * 	cdef int N = X.shape[0]             # <<<<<<<<<<<<<<
  * 
@@ -1490,43 +1512,43 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
  */
   __pyx_v_N = (__pyx_v_X->dimensions[0]);
 
-  /* "_hbond.pyx":41
+  /* "_hbond.pyx":27
  * 
  * 	# hydrogen bond list for each water molecules
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] hbond_lst = np.zeros(N,dtype=DTYPE2)             # <<<<<<<<<<<<<<
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] neighbors = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roo_vector = np.zeros(3,dtype=DTYPE1)
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, __pyx_t_1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_5 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer, (PyObject*)__pyx_t_5, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE2_t, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_hbond_lst = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_hbond_lst.diminfo[0].strides = __pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_hbond_lst.diminfo[0].shape = __pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -1534,43 +1556,43 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   __pyx_v_hbond_lst = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "_hbond.pyx":42
+  /* "_hbond.pyx":28
  * 	# hydrogen bond list for each water molecules
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] hbond_lst = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] neighbors = np.zeros(N,dtype=DTYPE2)             # <<<<<<<<<<<<<<
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roo_vector = np.zeros(3,dtype=DTYPE1)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roh_vector = np.zeros(3,dtype=DTYPE1)
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_N); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_4);
   __pyx_t_4 = 0;
-  __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE2); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_2) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_2, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_2);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_neighbors.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE2_t, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_neighbors = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_neighbors.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_neighbors.diminfo[0].strides = __pyx_pybuffernd_neighbors.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_neighbors.diminfo[0].shape = __pyx_pybuffernd_neighbors.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -1578,35 +1600,35 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   __pyx_v_neighbors = ((PyArrayObject *)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "_hbond.pyx":43
+  /* "_hbond.pyx":29
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] hbond_lst = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] neighbors = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roo_vector = np.zeros(3,dtype=DTYPE1)             # <<<<<<<<<<<<<<
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roh_vector = np.zeros(3,dtype=DTYPE1)
  * 
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyDict_New(); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_dtype, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple_, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple_, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_3);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_roo_vector.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE1_t, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_roo_vector = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_roo_vector.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_roo_vector.diminfo[0].strides = __pyx_pybuffernd_roo_vector.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_roo_vector.diminfo[0].shape = __pyx_pybuffernd_roo_vector.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -1614,35 +1636,35 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   __pyx_v_roo_vector = ((PyArrayObject *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "_hbond.pyx":44
+  /* "_hbond.pyx":30
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] neighbors = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roo_vector = np.zeros(3,dtype=DTYPE1)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roh_vector = np.zeros(3,dtype=DTYPE1)             # <<<<<<<<<<<<<<
  * 
  * 	cdef DTYPE1_t tmp,d,cos_angle,roo,dx,dy,dz
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_DTYPE1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__2, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__2, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_4);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
     if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_roh_vector.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_nn___pyx_t_6_hbond_DTYPE1_t, PyBUF_FORMAT| PyBUF_STRIDES| PyBUF_WRITABLE, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_roh_vector = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_roh_vector.diminfo[0].strides = __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_roh_vector.diminfo[0].shape = __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -1650,7 +1672,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   __pyx_v_roh_vector = ((PyArrayObject *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "_hbond.pyx":48
+  /* "_hbond.pyx":34
  * 	cdef DTYPE1_t tmp,d,cos_angle,roo,dx,dy,dz
  * 	cdef int i,j,k,p
  * 	for i in xrange(N-1):             # <<<<<<<<<<<<<<
@@ -1661,7 +1683,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
     __pyx_v_i = __pyx_t_10;
 
-    /* "_hbond.pyx":49
+    /* "_hbond.pyx":35
  * 	cdef int i,j,k,p
  * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):             # <<<<<<<<<<<<<<
@@ -1672,7 +1694,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
     for (__pyx_t_12 = (__pyx_v_i + 1); __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
       __pyx_v_j = __pyx_t_12;
 
-      /* "_hbond.pyx":50
+      /* "_hbond.pyx":36
  * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):
  * 			d = 0.0             # <<<<<<<<<<<<<<
@@ -1681,7 +1703,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
  */
       __pyx_v_d = 0.0;
 
-      /* "_hbond.pyx":51
+      /* "_hbond.pyx":37
  * 		for j in xrange(i+1,N):
  * 			d = 0.0
  * 			for k in range(3):             # <<<<<<<<<<<<<<
@@ -1691,7 +1713,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
       for (__pyx_t_13 = 0; __pyx_t_13 < 3; __pyx_t_13+=1) {
         __pyx_v_k = __pyx_t_13;
 
-        /* "_hbond.pyx":52
+        /* "_hbond.pyx":38
  * 			d = 0.0
  * 			for k in range(3):
  * 				tmp = X[i,0,k] - X[j,0,k]             # <<<<<<<<<<<<<<
@@ -1706,7 +1728,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
         __pyx_t_19 = __pyx_v_k;
         __pyx_v_tmp = ((*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_14, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_15, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_16, __pyx_pybuffernd_X.diminfo[2].strides)) - (*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_17, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_18, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_19, __pyx_pybuffernd_X.diminfo[2].strides)));
 
-        /* "_hbond.pyx":53
+        /* "_hbond.pyx":39
  * 			for k in range(3):
  * 				tmp = X[i,0,k] - X[j,0,k]
  * 				if fabs(tmp) >= BOX[k]*0.5: tmp = -tmp*(BOX[k]/fabs(tmp)-1)             # <<<<<<<<<<<<<<
@@ -1727,14 +1749,14 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
             #ifdef WITH_THREAD
             PyGILState_Release(__pyx_gilstate_save);
             #endif
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_v_tmp = ((-__pyx_v_tmp) * ((__pyx_t_23 / __pyx_t_24) - 1.0));
           goto __pyx_L9;
         }
         __pyx_L9:;
 
-        /* "_hbond.pyx":54
+        /* "_hbond.pyx":40
  * 				tmp = X[i,0,k] - X[j,0,k]
  * 				if fabs(tmp) >= BOX[k]*0.5: tmp = -tmp*(BOX[k]/fabs(tmp)-1)
  * 				roo_vector[k] = tmp             # <<<<<<<<<<<<<<
@@ -1744,37 +1766,37 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
         __pyx_t_25 = __pyx_v_k;
         *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_roo_vector.rcbuffer->pybuffer.buf, __pyx_t_25, __pyx_pybuffernd_roo_vector.diminfo[0].strides) = __pyx_v_tmp;
 
-        /* "_hbond.pyx":55
+        /* "_hbond.pyx":41
  * 				if fabs(tmp) >= BOX[k]*0.5: tmp = -tmp*(BOX[k]/fabs(tmp)-1)
  * 				roo_vector[k] = tmp
  * 				d += tmp * tmp             # <<<<<<<<<<<<<<
  * 			roo = sqrt(d)
- * 			if roo < 3.5:
+ * 			if roo < r_c:
  */
         __pyx_v_d = (__pyx_v_d + (__pyx_v_tmp * __pyx_v_tmp));
       }
 
-      /* "_hbond.pyx":56
+      /* "_hbond.pyx":42
  * 				roo_vector[k] = tmp
  * 				d += tmp * tmp
  * 			roo = sqrt(d)             # <<<<<<<<<<<<<<
- * 			if roo < 3.5:
+ * 			if roo < r_c:
  * 				# count the nearest neighbors for hydrogen bond efficiency.
  */
       __pyx_v_roo = sqrt(__pyx_v_d);
 
-      /* "_hbond.pyx":57
+      /* "_hbond.pyx":43
  * 				d += tmp * tmp
  * 			roo = sqrt(d)
- * 			if roo < 3.5:             # <<<<<<<<<<<<<<
+ * 			if roo < r_c:             # <<<<<<<<<<<<<<
  * 				# count the nearest neighbors for hydrogen bond efficiency.
  * 				neighbors[i] += 1
  */
-      __pyx_t_21 = ((__pyx_v_roo < 3.5) != 0);
+      __pyx_t_21 = ((__pyx_v_roo < __pyx_v_r_c) != 0);
       if (__pyx_t_21) {
 
-        /* "_hbond.pyx":59
- * 			if roo < 3.5:
+        /* "_hbond.pyx":45
+ * 			if roo < r_c:
  * 				# count the nearest neighbors for hydrogen bond efficiency.
  * 				neighbors[i] += 1             # <<<<<<<<<<<<<<
  * 				neighbors[j] += 1
@@ -1783,7 +1805,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
         __pyx_t_13 = __pyx_v_i;
         *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE2_t *, __pyx_pybuffernd_neighbors.rcbuffer->pybuffer.buf, __pyx_t_13, __pyx_pybuffernd_neighbors.diminfo[0].strides) += 1;
 
-        /* "_hbond.pyx":60
+        /* "_hbond.pyx":46
  * 				# count the nearest neighbors for hydrogen bond efficiency.
  * 				neighbors[i] += 1
  * 				neighbors[j] += 1             # <<<<<<<<<<<<<<
@@ -1793,7 +1815,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
         __pyx_t_26 = __pyx_v_j;
         *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE2_t *, __pyx_pybuffernd_neighbors.rcbuffer->pybuffer.buf, __pyx_t_26, __pyx_pybuffernd_neighbors.diminfo[0].strides) += 1;
 
-        /* "_hbond.pyx":63
+        /* "_hbond.pyx":49
  * 
  * 				# evaluate the hydrogens for one oxygen
  * 				for p in xrange(1,3):             # <<<<<<<<<<<<<<
@@ -1803,7 +1825,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
         for (__pyx_t_27 = 1; __pyx_t_27 < 3; __pyx_t_27+=1) {
           __pyx_v_p = __pyx_t_27;
 
-          /* "_hbond.pyx":64
+          /* "_hbond.pyx":50
  * 				# evaluate the hydrogens for one oxygen
  * 				for p in xrange(1,3):
  * 					dx = X[j,p,0] - X[j,0,0]             # <<<<<<<<<<<<<<
@@ -1818,7 +1840,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_33 = 0;
           __pyx_v_dx = ((*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_28, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_29, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_30, __pyx_pybuffernd_X.diminfo[2].strides)) - (*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_31, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_32, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_33, __pyx_pybuffernd_X.diminfo[2].strides)));
 
-          /* "_hbond.pyx":65
+          /* "_hbond.pyx":51
  * 				for p in xrange(1,3):
  * 					dx = X[j,p,0] - X[j,0,0]
  * 					dy = X[j,p,1] - X[j,0,1]             # <<<<<<<<<<<<<<
@@ -1833,7 +1855,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_39 = 1;
           __pyx_v_dy = ((*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_34, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_35, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_36, __pyx_pybuffernd_X.diminfo[2].strides)) - (*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_37, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_38, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_39, __pyx_pybuffernd_X.diminfo[2].strides)));
 
-          /* "_hbond.pyx":66
+          /* "_hbond.pyx":52
  * 					dx = X[j,p,0] - X[j,0,0]
  * 					dy = X[j,p,1] - X[j,0,1]
  * 					dz = X[j,p,2] - X[j,0,2]             # <<<<<<<<<<<<<<
@@ -1848,7 +1870,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_45 = 2;
           __pyx_v_dz = ((*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_40, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_41, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_42, __pyx_pybuffernd_X.diminfo[2].strides)) - (*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_43, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_44, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_45, __pyx_pybuffernd_X.diminfo[2].strides)));
 
-          /* "_hbond.pyx":67
+          /* "_hbond.pyx":53
  * 					dy = X[j,p,1] - X[j,0,1]
  * 					dz = X[j,p,2] - X[j,0,2]
  * 					if fabs(dx) >= BOX[0]*0.5: dx = -dx*(BOX[0]/fabs(dx)-1)             # <<<<<<<<<<<<<<
@@ -1869,14 +1891,14 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
               #ifdef WITH_THREAD
               PyGILState_Release(__pyx_gilstate_save);
               #endif
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 67; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_v_dx = ((-__pyx_v_dx) * ((__pyx_t_23 / __pyx_t_24) - 1.0));
             goto __pyx_L13;
           }
           __pyx_L13:;
 
-          /* "_hbond.pyx":68
+          /* "_hbond.pyx":54
  * 					dz = X[j,p,2] - X[j,0,2]
  * 					if fabs(dx) >= BOX[0]*0.5: dx = -dx*(BOX[0]/fabs(dx)-1)
  * 					if fabs(dy) >= BOX[1]*0.5: dy = -dy*(BOX[1]/fabs(dy)-1)             # <<<<<<<<<<<<<<
@@ -1897,14 +1919,14 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
               #ifdef WITH_THREAD
               PyGILState_Release(__pyx_gilstate_save);
               #endif
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_v_dy = ((-__pyx_v_dy) * ((__pyx_t_23 / __pyx_t_24) - 1.0));
             goto __pyx_L14;
           }
           __pyx_L14:;
 
-          /* "_hbond.pyx":69
+          /* "_hbond.pyx":55
  * 					if fabs(dx) >= BOX[0]*0.5: dx = -dx*(BOX[0]/fabs(dx)-1)
  * 					if fabs(dy) >= BOX[1]*0.5: dy = -dy*(BOX[1]/fabs(dy)-1)
  * 					if fabs(dz) >= BOX[2]*0.5: dz = -dz*(BOX[2]/fabs(dz)-1)             # <<<<<<<<<<<<<<
@@ -1925,14 +1947,14 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
               #ifdef WITH_THREAD
               PyGILState_Release(__pyx_gilstate_save);
               #endif
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 69; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_v_dz = ((-__pyx_v_dz) * ((__pyx_t_23 / __pyx_t_24) - 1.0));
             goto __pyx_L15;
           }
           __pyx_L15:;
 
-          /* "_hbond.pyx":71
+          /* "_hbond.pyx":57
  * 					if fabs(dz) >= BOX[2]*0.5: dz = -dz*(BOX[2]/fabs(dz)-1)
  * 
  * 					roh_vector[0] = dx             # <<<<<<<<<<<<<<
@@ -1942,7 +1964,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_52 = 0;
           *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.buf, __pyx_t_52, __pyx_pybuffernd_roh_vector.diminfo[0].strides) = __pyx_v_dx;
 
-          /* "_hbond.pyx":72
+          /* "_hbond.pyx":58
  * 
  * 					roh_vector[0] = dx
  * 					roh_vector[1] = dy             # <<<<<<<<<<<<<<
@@ -1952,7 +1974,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_53 = 1;
           *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.buf, __pyx_t_53, __pyx_pybuffernd_roh_vector.diminfo[0].strides) = __pyx_v_dy;
 
-          /* "_hbond.pyx":73
+          /* "_hbond.pyx":59
  * 					roh_vector[0] = dx
  * 					roh_vector[1] = dy
  * 					roh_vector[2] = dz             # <<<<<<<<<<<<<<
@@ -1962,11 +1984,11 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_54 = 2;
           *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.buf, __pyx_t_54, __pyx_pybuffernd_roh_vector.diminfo[0].strides) = __pyx_v_dz;
 
-          /* "_hbond.pyx":76
+          /* "_hbond.pyx":62
  * 					#roh_vector = vector(X[j,0,:],X[j,p,:],BOX)
  * 					#roh_vector = np.array([X[j,p,0] - X[j,0,0], X[j,p,1] - X[j,0,1], X[j,p,2] - X[j,0,2]],dtype=DTYPE1_t)
  * 					cos_angle = (roh_vector[0]*roo_vector[0] + roh_vector[1]*roo_vector[1] + roh_vector[2]*roo_vector[2])/roo             # <<<<<<<<<<<<<<
- * 					if cos_angle >= sqrt(3.0)/2.0:
+ * 					if cos_angle >= cos_angle_c:
  * 						hbond_lst[i] += 1
  */
           __pyx_t_55 = 0;
@@ -1984,23 +2006,23 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
             #ifdef WITH_THREAD
             PyGILState_Release(__pyx_gilstate_save);
             #endif
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 76; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_v_cos_angle = (__pyx_t_23 / __pyx_v_roo);
 
-          /* "_hbond.pyx":77
+          /* "_hbond.pyx":63
  * 					#roh_vector = np.array([X[j,p,0] - X[j,0,0], X[j,p,1] - X[j,0,1], X[j,p,2] - X[j,0,2]],dtype=DTYPE1_t)
  * 					cos_angle = (roh_vector[0]*roo_vector[0] + roh_vector[1]*roo_vector[1] + roh_vector[2]*roo_vector[2])/roo
- * 					if cos_angle >= sqrt(3.0)/2.0:             # <<<<<<<<<<<<<<
+ * 					if cos_angle >= cos_angle_c:             # <<<<<<<<<<<<<<
  * 						hbond_lst[i] += 1
  * 						hbond_lst[j] += 1
  */
-          __pyx_t_21 = ((__pyx_v_cos_angle >= (sqrt(3.0) / 2.0)) != 0);
+          __pyx_t_21 = ((__pyx_v_cos_angle >= __pyx_v_cos_angle_c) != 0);
           if (__pyx_t_21) {
 
-            /* "_hbond.pyx":78
+            /* "_hbond.pyx":64
  * 					cos_angle = (roh_vector[0]*roo_vector[0] + roh_vector[1]*roo_vector[1] + roh_vector[2]*roo_vector[2])/roo
- * 					if cos_angle >= sqrt(3.0)/2.0:
+ * 					if cos_angle >= cos_angle_c:
  * 						hbond_lst[i] += 1             # <<<<<<<<<<<<<<
  * 						hbond_lst[j] += 1
  * 						break
@@ -2008,8 +2030,8 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
             __pyx_t_61 = __pyx_v_i;
             *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE2_t *, __pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer.buf, __pyx_t_61, __pyx_pybuffernd_hbond_lst.diminfo[0].strides) += 1;
 
-            /* "_hbond.pyx":79
- * 					if cos_angle >= sqrt(3.0)/2.0:
+            /* "_hbond.pyx":65
+ * 					if cos_angle >= cos_angle_c:
  * 						hbond_lst[i] += 1
  * 						hbond_lst[j] += 1             # <<<<<<<<<<<<<<
  * 						break
@@ -2018,7 +2040,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
             __pyx_t_62 = __pyx_v_j;
             *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE2_t *, __pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer.buf, __pyx_t_62, __pyx_pybuffernd_hbond_lst.diminfo[0].strides) += 1;
 
-            /* "_hbond.pyx":80
+            /* "_hbond.pyx":66
  * 						hbond_lst[i] += 1
  * 						hbond_lst[j] += 1
  * 						break             # <<<<<<<<<<<<<<
@@ -2030,7 +2052,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
         }
         __pyx_L12_break:;
 
-        /* "_hbond.pyx":82
+        /* "_hbond.pyx":68
  * 						break
  * 				# evaluate the hydrogens for the other oxygen
  * 				for p in xrange(1,3):             # <<<<<<<<<<<<<<
@@ -2040,7 +2062,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
         for (__pyx_t_27 = 1; __pyx_t_27 < 3; __pyx_t_27+=1) {
           __pyx_v_p = __pyx_t_27;
 
-          /* "_hbond.pyx":83
+          /* "_hbond.pyx":69
  * 				# evaluate the hydrogens for the other oxygen
  * 				for p in xrange(1,3):
  * 					dx = X[i,p,0] - X[i,0,0]             # <<<<<<<<<<<<<<
@@ -2055,7 +2077,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_68 = 0;
           __pyx_v_dx = ((*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_63, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_64, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_65, __pyx_pybuffernd_X.diminfo[2].strides)) - (*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_66, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_67, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_68, __pyx_pybuffernd_X.diminfo[2].strides)));
 
-          /* "_hbond.pyx":84
+          /* "_hbond.pyx":70
  * 				for p in xrange(1,3):
  * 					dx = X[i,p,0] - X[i,0,0]
  * 					dy = X[i,p,1] - X[i,0,1]             # <<<<<<<<<<<<<<
@@ -2070,7 +2092,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_74 = 1;
           __pyx_v_dy = ((*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_69, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_70, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_71, __pyx_pybuffernd_X.diminfo[2].strides)) - (*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_72, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_73, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_74, __pyx_pybuffernd_X.diminfo[2].strides)));
 
-          /* "_hbond.pyx":85
+          /* "_hbond.pyx":71
  * 					dx = X[i,p,0] - X[i,0,0]
  * 					dy = X[i,p,1] - X[i,0,1]
  * 					dz = X[i,p,2] - X[i,0,2]             # <<<<<<<<<<<<<<
@@ -2085,7 +2107,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_80 = 2;
           __pyx_v_dz = ((*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_75, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_76, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_77, __pyx_pybuffernd_X.diminfo[2].strides)) - (*__Pyx_BufPtrStrided3d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_X.rcbuffer->pybuffer.buf, __pyx_t_78, __pyx_pybuffernd_X.diminfo[0].strides, __pyx_t_79, __pyx_pybuffernd_X.diminfo[1].strides, __pyx_t_80, __pyx_pybuffernd_X.diminfo[2].strides)));
 
-          /* "_hbond.pyx":86
+          /* "_hbond.pyx":72
  * 					dy = X[i,p,1] - X[i,0,1]
  * 					dz = X[i,p,2] - X[i,0,2]
  * 					if fabs(dx) >= BOX[0]*0.5: dx = -dx*(BOX[0]/fabs(dx)-1)             # <<<<<<<<<<<<<<
@@ -2106,14 +2128,14 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
               #ifdef WITH_THREAD
               PyGILState_Release(__pyx_gilstate_save);
               #endif
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 72; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_v_dx = ((-__pyx_v_dx) * ((__pyx_t_23 / __pyx_t_24) - 1.0));
             goto __pyx_L19;
           }
           __pyx_L19:;
 
-          /* "_hbond.pyx":87
+          /* "_hbond.pyx":73
  * 					dz = X[i,p,2] - X[i,0,2]
  * 					if fabs(dx) >= BOX[0]*0.5: dx = -dx*(BOX[0]/fabs(dx)-1)
  * 					if fabs(dy) >= BOX[1]*0.5: dy = -dy*(BOX[1]/fabs(dy)-1)             # <<<<<<<<<<<<<<
@@ -2134,14 +2156,14 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
               #ifdef WITH_THREAD
               PyGILState_Release(__pyx_gilstate_save);
               #endif
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 73; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_v_dy = ((-__pyx_v_dy) * ((__pyx_t_23 / __pyx_t_24) - 1.0));
             goto __pyx_L20;
           }
           __pyx_L20:;
 
-          /* "_hbond.pyx":88
+          /* "_hbond.pyx":74
  * 					if fabs(dx) >= BOX[0]*0.5: dx = -dx*(BOX[0]/fabs(dx)-1)
  * 					if fabs(dy) >= BOX[1]*0.5: dy = -dy*(BOX[1]/fabs(dy)-1)
  * 					if fabs(dz) >= BOX[2]*0.5: dz = -dz*(BOX[2]/fabs(dz)-1)             # <<<<<<<<<<<<<<
@@ -2162,14 +2184,14 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
               #ifdef WITH_THREAD
               PyGILState_Release(__pyx_gilstate_save);
               #endif
-              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+              {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
             }
             __pyx_v_dz = ((-__pyx_v_dz) * ((__pyx_t_23 / __pyx_t_24) - 1.0));
             goto __pyx_L21;
           }
           __pyx_L21:;
 
-          /* "_hbond.pyx":90
+          /* "_hbond.pyx":76
  * 					if fabs(dz) >= BOX[2]*0.5: dz = -dz*(BOX[2]/fabs(dz)-1)
  * 
  * 					roh_vector[0] = dx             # <<<<<<<<<<<<<<
@@ -2179,7 +2201,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_87 = 0;
           *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.buf, __pyx_t_87, __pyx_pybuffernd_roh_vector.diminfo[0].strides) = __pyx_v_dx;
 
-          /* "_hbond.pyx":91
+          /* "_hbond.pyx":77
  * 
  * 					roh_vector[0] = dx
  * 					roh_vector[1] = dy             # <<<<<<<<<<<<<<
@@ -2189,7 +2211,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_88 = 1;
           *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.buf, __pyx_t_88, __pyx_pybuffernd_roh_vector.diminfo[0].strides) = __pyx_v_dy;
 
-          /* "_hbond.pyx":92
+          /* "_hbond.pyx":78
  * 					roh_vector[0] = dx
  * 					roh_vector[1] = dy
  * 					roh_vector[2] = dz             # <<<<<<<<<<<<<<
@@ -2199,11 +2221,11 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
           __pyx_t_89 = 2;
           *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE1_t *, __pyx_pybuffernd_roh_vector.rcbuffer->pybuffer.buf, __pyx_t_89, __pyx_pybuffernd_roh_vector.diminfo[0].strides) = __pyx_v_dz;
 
-          /* "_hbond.pyx":96
+          /* "_hbond.pyx":82
  * 					#roh_vector = vector(X[i,0,:],X[i,p,:],BOX)
  * 					#roh_vector = np.array([X[i,p,0] - X[i,0,0], X[i,p,1] - X[i,0,1], X[i,p,2] - X[i,0,2]],dtype=DTYPE1_t)
  * 					cos_angle = (-roh_vector[0]*roo_vector[0] - roh_vector[1]*roo_vector[1] - roh_vector[2]*roo_vector[2])/roo             # <<<<<<<<<<<<<<
- * 					if cos_angle >= sqrt(3.0)/2.0:
+ * 					if cos_angle >= cos_angle_c:
  * 						hbond_lst[i] += 1
  */
           __pyx_t_90 = 0;
@@ -2221,23 +2243,23 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
             #ifdef WITH_THREAD
             PyGILState_Release(__pyx_gilstate_save);
             #endif
-            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            {__pyx_filename = __pyx_f[0]; __pyx_lineno = 82; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
           }
           __pyx_v_cos_angle = (__pyx_t_23 / __pyx_v_roo);
 
-          /* "_hbond.pyx":97
+          /* "_hbond.pyx":83
  * 					#roh_vector = np.array([X[i,p,0] - X[i,0,0], X[i,p,1] - X[i,0,1], X[i,p,2] - X[i,0,2]],dtype=DTYPE1_t)
  * 					cos_angle = (-roh_vector[0]*roo_vector[0] - roh_vector[1]*roo_vector[1] - roh_vector[2]*roo_vector[2])/roo
- * 					if cos_angle >= sqrt(3.0)/2.0:             # <<<<<<<<<<<<<<
+ * 					if cos_angle >= cos_angle_c:             # <<<<<<<<<<<<<<
  * 						hbond_lst[i] += 1
  * 						hbond_lst[j] += 1
  */
-          __pyx_t_21 = ((__pyx_v_cos_angle >= (sqrt(3.0) / 2.0)) != 0);
+          __pyx_t_21 = ((__pyx_v_cos_angle >= __pyx_v_cos_angle_c) != 0);
           if (__pyx_t_21) {
 
-            /* "_hbond.pyx":98
+            /* "_hbond.pyx":84
  * 					cos_angle = (-roh_vector[0]*roo_vector[0] - roh_vector[1]*roo_vector[1] - roh_vector[2]*roo_vector[2])/roo
- * 					if cos_angle >= sqrt(3.0)/2.0:
+ * 					if cos_angle >= cos_angle_c:
  * 						hbond_lst[i] += 1             # <<<<<<<<<<<<<<
  * 						hbond_lst[j] += 1
  * 						break
@@ -2245,8 +2267,8 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
             __pyx_t_96 = __pyx_v_i;
             *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE2_t *, __pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer.buf, __pyx_t_96, __pyx_pybuffernd_hbond_lst.diminfo[0].strides) += 1;
 
-            /* "_hbond.pyx":99
- * 					if cos_angle >= sqrt(3.0)/2.0:
+            /* "_hbond.pyx":85
+ * 					if cos_angle >= cos_angle_c:
  * 						hbond_lst[i] += 1
  * 						hbond_lst[j] += 1             # <<<<<<<<<<<<<<
  * 						break
@@ -2255,7 +2277,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
             __pyx_t_97 = __pyx_v_j;
             *__Pyx_BufPtrStrided1d(__pyx_t_6_hbond_DTYPE2_t *, __pyx_pybuffernd_hbond_lst.rcbuffer->pybuffer.buf, __pyx_t_97, __pyx_pybuffernd_hbond_lst.diminfo[0].strides) += 1;
 
-            /* "_hbond.pyx":100
+            /* "_hbond.pyx":86
  * 						hbond_lst[i] += 1
  * 						hbond_lst[j] += 1
  * 						break             # <<<<<<<<<<<<<<
@@ -2272,7 +2294,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
     }
   }
 
-  /* "_hbond.pyx":102
+  /* "_hbond.pyx":88
  * 						break
  * 
  * 	return hbond_lst,neighbors             # <<<<<<<<<<<<<<
@@ -2280,7 +2302,7 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 88; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(((PyObject *)__pyx_v_hbond_lst));
   PyTuple_SET_ITEM(__pyx_t_4, 0, ((PyObject *)__pyx_v_hbond_lst));
@@ -2292,10 +2314,10 @@ static PyObject *__pyx_pf_6_hbond_hbond(CYTHON_UNUSED PyObject *__pyx_self, PyAr
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "_hbond.pyx":31
+  /* "_hbond.pyx":14
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX):             # <<<<<<<<<<<<<<
+ * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX, double r_c, double cos_angle_c):             # <<<<<<<<<<<<<<
  * 	# the function takes a numpy array
  * 	# stores coordinates of all atoms
  */
@@ -4372,6 +4394,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_X, __pyx_k_X, sizeof(__pyx_k_X), 0, 0, 1, 1},
   {&__pyx_n_s_cos_angle, __pyx_k_cos_angle, sizeof(__pyx_k_cos_angle), 0, 0, 1, 1},
+  {&__pyx_n_s_cos_angle_c, __pyx_k_cos_angle_c, sizeof(__pyx_k_cos_angle_c), 0, 0, 1, 1},
   {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
   {&__pyx_n_s_dx, __pyx_k_dx, sizeof(__pyx_k_dx), 0, 0, 1, 1},
@@ -4393,6 +4416,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_n_s_p, __pyx_k_p, sizeof(__pyx_k_p), 0, 0, 1, 1},
+  {&__pyx_n_s_r_c, __pyx_k_r_c, sizeof(__pyx_k_r_c), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_roh_vector, __pyx_k_roh_vector, sizeof(__pyx_k_roh_vector), 0, 0, 1, 1},
   {&__pyx_n_s_roo, __pyx_k_roo, sizeof(__pyx_k_roo), 0, 0, 1, 1},
@@ -4406,11 +4430,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   #if PY_MAJOR_VERSION >= 3
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_xrange) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #else
-  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 51; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 802; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
@@ -4422,25 +4446,25 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "_hbond.pyx":43
+  /* "_hbond.pyx":29
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] hbond_lst = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] neighbors = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roo_vector = np.zeros(3,dtype=DTYPE1)             # <<<<<<<<<<<<<<
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roh_vector = np.zeros(3,dtype=DTYPE1)
  * 
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 43; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple_)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 29; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "_hbond.pyx":44
+  /* "_hbond.pyx":30
  * 	cdef np.ndarray[DTYPE2_t,ndim=1] neighbors = np.zeros(N,dtype=DTYPE2)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roo_vector = np.zeros(3,dtype=DTYPE1)
  * 	cdef np.ndarray[DTYPE1_t,ndim=1] roh_vector = np.zeros(3,dtype=DTYPE1)             # <<<<<<<<<<<<<<
  * 
  * 	cdef DTYPE1_t tmp,d,cos_angle,roo,dx,dy,dz
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_int_3); if (unlikely(!__pyx_tuple__2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
@@ -4510,17 +4534,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "_hbond.pyx":31
+  /* "_hbond.pyx":14
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX):             # <<<<<<<<<<<<<<
+ * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX, double r_c, double cos_angle_c):             # <<<<<<<<<<<<<<
  * 	# the function takes a numpy array
  * 	# stores coordinates of all atoms
  */
-  __pyx_tuple__9 = PyTuple_Pack(18, __pyx_n_s_X, __pyx_n_s_BOX, __pyx_n_s_N, __pyx_n_s_hbond_lst, __pyx_n_s_neighbors, __pyx_n_s_roo_vector, __pyx_n_s_roh_vector, __pyx_n_s_tmp, __pyx_n_s_d, __pyx_n_s_cos_angle, __pyx_n_s_roo, __pyx_n_s_dx, __pyx_n_s_dy, __pyx_n_s_dz, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_p); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__9 = PyTuple_Pack(20, __pyx_n_s_X, __pyx_n_s_BOX, __pyx_n_s_r_c, __pyx_n_s_cos_angle_c, __pyx_n_s_N, __pyx_n_s_hbond_lst, __pyx_n_s_neighbors, __pyx_n_s_roo_vector, __pyx_n_s_roh_vector, __pyx_n_s_tmp, __pyx_n_s_d, __pyx_n_s_cos_angle, __pyx_n_s_roo, __pyx_n_s_dx, __pyx_n_s_dy, __pyx_n_s_dz, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_k, __pyx_n_s_p); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 18, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Shi_Documents_Academic_Do, __pyx_n_s_hbond, 31, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(4, 0, 20, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_Shi_Documents_Academic_Do, __pyx_n_s_hbond, 14, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -4644,46 +4668,46 @@ PyMODINIT_FUNC PyInit__hbond(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_hbond.pyx":7
- * #from _pdist cimport pdistwithpc
+  /* "_hbond.pyx":6
+ * from libc.math cimport sqrt,fabs
  * 
  * DTYPE1 = np.float32             # <<<<<<<<<<<<<<
  * DTYPE2 = np.int32
  * ctypedef np.float32_t DTYPE1_t
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DTYPE1, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DTYPE1, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "_hbond.pyx":8
+  /* "_hbond.pyx":7
  * 
  * DTYPE1 = np.float32
  * DTYPE2 = np.int32             # <<<<<<<<<<<<<<
  * ctypedef np.float32_t DTYPE1_t
  * ctypedef np.int32_t DTYPE2_t
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_int32); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_int32); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DTYPE2, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 8; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_DTYPE2, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "_hbond.pyx":31
+  /* "_hbond.pyx":14
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
- * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX):             # <<<<<<<<<<<<<<
+ * def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX, double r_c, double cos_angle_c):             # <<<<<<<<<<<<<<
  * 	# the function takes a numpy array
  * 	# stores coordinates of all atoms
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6_hbond_1hbond, NULL, __pyx_n_s_hbond_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6_hbond_1hbond, NULL, __pyx_n_s_hbond_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hbond, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_hbond, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 14; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "_hbond.pyx":1

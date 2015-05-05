@@ -22,7 +22,7 @@ def cdist(np.ndarray[DTYPE_t,ndim=2] A,np.ndarray[DTYPE_t,ndim=2] B):
 			for k in range(dim):
 				tmp = A[i,k] - B[j,k]
 				d += tmp * tmp
-			D[j,i] = sqrt(d)
+			D[i,j] = sqrt(d)
 
 	return D
 
@@ -43,6 +43,6 @@ def cdistwithpc(np.ndarray[DTYPE_t,ndim=2] A,np.ndarray[DTYPE_t,ndim=2] B,np.nda
 				tmp = A[i,k] - B[j,k]
 				if fabs(tmp) >= BOX[k]*0.5: tmp = -tmp*(BOX[k]/fabs(tmp)-1)
 				d += tmp * tmp
-			D[j,i] = sqrt(d)
+			D[i,j] = sqrt(d)
 
 	return D
