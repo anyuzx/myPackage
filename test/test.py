@@ -5,6 +5,11 @@ import scipy.spatial.distance as distance
 from .. import core
 from .. import analysis
 
+# Test suites
+# Usage:
+#		in the same path as the myPackage. use command
+# 		python -m myPackage.test
+
 # ==================================================
 # test pdist and cdist module
 a = np.random.rand(10,3)
