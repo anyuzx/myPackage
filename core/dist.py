@@ -10,10 +10,12 @@ import sys
 
 # ------------------------------------------------------------
 # Usage:
-# 		mypackage.pdist(object,PC=False)
-# 		object: a numpy array or python list
+# 		mypackage.pdist(object X,PC=False)
+# 		object X: a numpy array or python list
 #       PC: periodic boundary. default value False(No periodic boundary condition)
-#
+# Return:
+#		lower triangle matrix where entry (i,j) is the distance between X[i] and X[j]
+#      
 # Example: 
 #		import numpy as np
 #		import mypackage as mp
@@ -22,9 +24,11 @@ import sys
 #		mp.pdist(x,PC=[1.0,1.0,1.0])
 # ============================================================
 # Usage:
-#		mypackage.cdist(object,PC=False)
-#		object: a numpy array or python list
+#		mypackage.cdist(object A, object B, PC=False)
+#		object A/B: numpy array or python list
 #		PC: periodic boundary. default value False(No periodic boundary condition)
+# Return:
+# 		matrix where entry (i,j) is the distance between A[i] and B[j]
 #
 # Example:
 #		import numpy as np
