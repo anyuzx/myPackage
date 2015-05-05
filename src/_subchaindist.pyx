@@ -13,8 +13,8 @@ def sbd(np.ndarray[DTYPE_t,ndim=2] D):
 
 	cdef np.ndarray[DTYPE_t,ndim=1] sbd_lst = np.zeros(N-1,dtype=DTYPE)
 	cdef int i,j
-	for i in xrange(N):
-		for j in xrange(i,N):
-			sbd_lst[j-i] += D[j,i]/(N-(j-i))
+	for i in xrange(N-1):
+		for j in xrange(i+1,N):
+			sbd_lst[j-i-1] += D[j,i]/(N-(j-i))
 
 	return sbd_lst

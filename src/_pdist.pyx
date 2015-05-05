@@ -16,7 +16,7 @@ def pdist(np.ndarray[DTYPE_t,ndim=2] X):
 	cdef np.ndarray[DTYPE_t,ndim=2] D = np.zeros((N,N),dtype=DTYPE)
 	cdef DTYPE_t tmp,d
 	cdef int i,j,k
-	for i in xrange(N):
+	for i in xrange(N-1):
 		for j in xrange(i+1,N):
 			d = 0.0
 			for k in range(dim):
@@ -35,7 +35,7 @@ def pdistwithpc(np.ndarray[DTYPE_t,ndim=2] X,np.ndarray[DTYPE_t,ndim=1] BOX):
 	cdef np.ndarray[DTYPE_t,ndim=2] D = np.zeros((N,N),dtype=DTYPE)
 	cdef DTYPE_t tmp,d
 	cdef int i,j,k
-	for i in xrange(N):
+	for i in xrange(N-1):
 		for j in xrange(i+1,N):
 			d = 0.0
 			for k in range(dim):

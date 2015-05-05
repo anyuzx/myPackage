@@ -37,10 +37,10 @@ def _convert_float32(x):
 #		import mypackage as mp
 #		x = np.random.rand(1000,3)
 # 		dist = mp.pdist(x)
-#		mp.contactmap(dist,1.0,mode='half')
+#		mp.analysis.polymertool.contactmap(dist,1.0,mode='half')
 #		y = np.random.rand(1000,3)
 #		dist = mp.cdist(x,y)
-#		mp.contactmap(dist,1.0)
+#		mp.analysis.polymertool.contactmap(dist,1.0)
 # ------------------------------------------------------------
 
 def contactmap(X,RC,mode = 'full'):
@@ -73,7 +73,7 @@ def contactmap(X,RC,mode = 'full'):
 #		import mypackage as mp
 #		x = np.random.rand(1000,3)
 # 		dist = mp.pdist(x)
-#		mp.analysis.subchaindist(dist)
+#		mp.analysis.polymertool.subchaindist(dist)
 # ------------------------------------------------------------
 
 def subchaindist(X):
@@ -100,7 +100,7 @@ def subchaindist(X):
 #		import mypackage as mp
 #		x = np.random.rand(1000,3)
 # 		dist = mp.pdist(x)
-#		mp.analysis.contactprob(dist,1.0)
+#		mp.analysis.polymertool.contactprob(dist,1.0)
 # ------------------------------------------------------------
 
 def contactprob(X,RC):

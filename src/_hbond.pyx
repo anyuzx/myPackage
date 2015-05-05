@@ -40,7 +40,7 @@ def hbond(np.ndarray[DTYPE1_t,ndim=3] X,np.ndarray[DTYPE1_t,ndim=1] BOX, double 
 				roo_vector[k] = tmp
 				d += tmp * tmp
 			roo = sqrt(d)
-			if roo < rc:
+			if roo < r_c:
 				# count the nearest neighbors for hydrogen bond efficiency.
 				neighbors[i] += 1
 				neighbors[j] += 1
