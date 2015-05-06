@@ -1239,7 +1239,7 @@ static PyObject *__pyx_pf_13_subchaindist_sbd(CYTHON_UNUSED PyObject *__pyx_self
   int __pyx_t_9;
   int __pyx_t_10;
   int __pyx_t_11;
-  __pyx_t_13_subchaindist_DTYPE_t __pyx_t_12;
+  double __pyx_t_12;
   int __pyx_t_13;
   long __pyx_t_14;
   int __pyx_lineno = 0;
@@ -1318,7 +1318,7 @@ static PyObject *__pyx_pf_13_subchaindist_sbd(CYTHON_UNUSED PyObject *__pyx_self
  * 	cdef int i,j
  * 	for i in xrange(N-1):             # <<<<<<<<<<<<<<
  * 		for j in xrange(i+1,N):
- * 			sbd_lst[j-i-1] += D[j,i]/(N-(j-i))
+ * 			sbd_lst[j-i-1] += pow(D[j,i],2.0)/(N-(j-i))
  */
   __pyx_t_6 = (__pyx_v_N - 1);
   for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
@@ -1328,7 +1328,7 @@ static PyObject *__pyx_pf_13_subchaindist_sbd(CYTHON_UNUSED PyObject *__pyx_self
  * 	cdef int i,j
  * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):             # <<<<<<<<<<<<<<
- * 			sbd_lst[j-i-1] += D[j,i]/(N-(j-i))
+ * 			sbd_lst[j-i-1] += pow(D[j,i],2.0)/(N-(j-i))
  * 
  */
     __pyx_t_8 = __pyx_v_N;
@@ -1338,13 +1338,13 @@ static PyObject *__pyx_pf_13_subchaindist_sbd(CYTHON_UNUSED PyObject *__pyx_self
       /* "_subchaindist.pyx":18
  * 	for i in xrange(N-1):
  * 		for j in xrange(i+1,N):
- * 			sbd_lst[j-i-1] += D[j,i]/(N-(j-i))             # <<<<<<<<<<<<<<
+ * 			sbd_lst[j-i-1] += pow(D[j,i],2.0)/(N-(j-i))             # <<<<<<<<<<<<<<
  * 
  * 	return sbd_lst
  */
       __pyx_t_10 = __pyx_v_j;
       __pyx_t_11 = __pyx_v_i;
-      __pyx_t_12 = (*__Pyx_BufPtrStrided2d(__pyx_t_13_subchaindist_DTYPE_t *, __pyx_pybuffernd_D.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_D.diminfo[0].strides, __pyx_t_11, __pyx_pybuffernd_D.diminfo[1].strides));
+      __pyx_t_12 = pow((*__Pyx_BufPtrStrided2d(__pyx_t_13_subchaindist_DTYPE_t *, __pyx_pybuffernd_D.rcbuffer->pybuffer.buf, __pyx_t_10, __pyx_pybuffernd_D.diminfo[0].strides, __pyx_t_11, __pyx_pybuffernd_D.diminfo[1].strides)), 2.0);
       __pyx_t_13 = (__pyx_v_N - (__pyx_v_j - __pyx_v_i));
       if (unlikely(__pyx_t_13 == 0)) {
         #ifdef WITH_THREAD
@@ -1362,7 +1362,7 @@ static PyObject *__pyx_pf_13_subchaindist_sbd(CYTHON_UNUSED PyObject *__pyx_self
   }
 
   /* "_subchaindist.pyx":20
- * 			sbd_lst[j-i-1] += D[j,i]/(N-(j-i))
+ * 			sbd_lst[j-i-1] += pow(D[j,i],2.0)/(N-(j-i))
  * 
  * 	return sbd_lst             # <<<<<<<<<<<<<<
  */
@@ -3675,7 +3675,7 @@ PyMODINIT_FUNC PyInit__subchaindist(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "_subchaindist.pyx":6
- * from libc.math cimport sqrt
+ * from libc.math cimport sqrt,pow
  * 
  * DTYPE = np.float32             # <<<<<<<<<<<<<<
  * ctypedef np.float32_t DTYPE_t
