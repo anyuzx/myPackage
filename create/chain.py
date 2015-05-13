@@ -9,7 +9,7 @@ import sys
 
 # ------------------------------------------------------------
 # Usage:
-#       mypackage.create.chain(N,l=1.0,VolumeExclusion=True,NumberIteration=None)
+#       myPackage.create.chain(N,l=1.0,VolumeExclusion=True,NumberIteration=None)
 #       N: int
 #          number of steps(sites) of chain
 #       l: float or int
@@ -23,8 +23,8 @@ import sys
 #
 # Example: 
 #       import numpy as np
-#       import mypackage as mp
-#       mp.create.chain(1000,1.5,VolumeExclusion=True,NumberIteration=5000)
+#       import myPackage as mp
+#       mp.create.chain(1000,l=1.5,VolumeExclusion=True,NumberIteration=5000)
 # ------------------------------------------------------------
 
 __all__ = ['chain']
@@ -38,17 +38,17 @@ class chain:
         else:
             self.N = N
         
-        self.l = kwargs.get(l,1.0)
+        self.l = kwargs.get('l',1.0)
         try:
             self.l = float(self.l)
         except:
             sys.stdout.write('ERROR: the length of one step must be a real number\n')
 
-        self.VolumeExclusion = kwargs.get(VolumeExclusion,True)
-        if not isinstance(VolumeExclusion,bool):
+        self.VolumeExclusion = kwargs.get('VolumeExclusion',True)
+        if not isinstance(self.VolumeExclusion,bool):
             raise Exception('ERROR: VolumeExclusion must be boolean type\n')
 
-        self.NumberIteration = kwargs.get(NumberIteration,None)
+        self.NumberIteration = kwargs.get('NumberIteration',None)
         if self.NumberIteration == None:
             self.NumberIteration = self.N
         else:
