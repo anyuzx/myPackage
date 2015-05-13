@@ -8,7 +8,7 @@ class data:
 	def __init__(self):
 		self.model_dic = {'SPC/E ice 1h':'ice1h','lennard-jones liquid':'lj',\
 						  'SPC/E water':'spce','TIP5P water':'tip5p',\
-						  'self-avoiding chain':'wca_chain',\
+						  'self-avoiding chain':'lattice_chain',\
 						  'lennard-jones polymer':'lj_chain','lennard-jones WLC polymer':'lj_wlc',\
 						  'Rosette Loop Model polymer':'RSM_chain','Linear Loop Model polymer':'LLM_chain',\
 						  'Cross Loop Model polymer':'CLM_chain','Fractal Loop Model polymer':'FLM_chain'}

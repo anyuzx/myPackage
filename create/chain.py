@@ -59,7 +59,14 @@ class chain:
 
     def create_chain(self):
         self.chain_config = _lattice_chain.lattice_chain(self.N,self.l,int(self.VolumeExclusion==True),self.NumberIteration).reshape(self.N,3)
-        return self.chain_config
+        box_xmax = np.max(self.chain_config[:,0]) + 10.0
+        box_xmin = np.min(self.chain_config[:,0]) - 10.0
+        box_ymax = np.max(self.chain_config[:,1]) + 10.0
+        box_ymin = np.min(self.chain_config[:,1]) - 10.0
+        box_zmax = np.max(self.chain_config[:,2]) + 10.0
+        box_zmin = np.min(self.chain_config[:,2]) - 10.0
+        self.box = np.array([[box_xmin,box_xmax],[box_ymin,box_ymax],[box_zmin,box_zmax]])
+        return self.chain_config, self.box
 
     def plot(self,bond=True):
         try:
