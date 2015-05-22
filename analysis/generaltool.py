@@ -9,3 +9,6 @@ def rdf(dist,n_bins,r_cut,N_a,rou_b):
 
 def msd(snap_init,snap_t):
 	return np.sum(np.mean(np.power(snap_t-snap_init,2),axis=0))
+
+def vacf(snap_init,snap_t):
+	return np.mean(np.sum(snap_t*snap_init,axis=1))
