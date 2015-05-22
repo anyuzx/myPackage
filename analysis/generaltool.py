@@ -1,6 +1,6 @@
 import numpy as np
 
-__all__ = ['rdf']
+__all__ = ['rdf','msd','vacf']
 
 def rdf(dist,n_bins,r_cut,N_a,rou_b):
 	hist,bins_edge = np.histogram(dist,bins = np.linspace(0,r_cut,n_bins+1))

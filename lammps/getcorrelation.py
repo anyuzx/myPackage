@@ -58,7 +58,6 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,select='all'):
 	#else:
 	#	raise ValueError('Number of Snapshots analyzed must be a multiple of time_lapse')
 	time_init_lst = np.linspace(0,ave_freq*(len(timeselect)/ave_freq),len(timeselect)/ave_freq+1,dtype=int)
-	print time_init_lst
 	deltat = 0
 	cf_data = []
 	cf_data_std = []
