@@ -25,7 +25,8 @@ void c_lattice_chain(double* chain, int N, double l0, int ve, int t){
     };
     
     // use mt19937 random engine
-    mt19937 re((unsigned int)time(0));
+    std::random_device rd;
+    mt19937 re((unsigned int)rd());
     // set uniform integer distribution for choosing pivot point
     std::uniform_int_distribution<int> ui_pivot(1,N-2);
     // set uniform integer distribution for choosing side for rotating
