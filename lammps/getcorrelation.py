@@ -42,7 +42,7 @@ def init_dump(finname,mode,select):
 
 	return f,timeselect,index
 
-def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,select='all'):
+def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 	func_lst = []
 	for item in mode:
 		if item == 'MSD':
@@ -64,8 +64,8 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,select='all'):
 	for item in mode:
 		cf_data.append([])
 		cf_data_std.append([])
-		cf_data[-1] = [[] for i in range(len(timeselect))]
-		cf_data_std[-1] = [[] for i in range(len(timeselect))]
+		cf_data[-1] = [np.array([0.0,0.0,0.0,0.0]) for i in range(window+1)]
+		cf_data_std[-1] = [[] for i in range(window+1)]
 	snap_init_lst = []
 
 	for i in range(len(timeselect)):
@@ -90,7 +90,8 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,select='all'):
 					data_temp = func_lst[k](snap[:,1:4],snap_init_lst[j][:,1:4])
 				elif mode[k] == 'VACF':
 					data_temp = func_lst[k](snap[:,4:7],snap_init_lst[j][:,4:7])
-				cf_data[k][i - time_init_lst[j]].append(np.array([timeselect[i]-timeselect[time_init_lst[j]],data_temp]))
+				if i - time_init_lst[j] <= window:
+					cf_data[k][i - time_init_lst[j]] += np.array([timeselect[i]-timeselect[time_init_lst[j]],data_temp,data_temp**2,1])
 
 		t2 = time.time()
 		deltat += t2 - t1
@@ -107,8 +108,9 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,select='all'):
 		output.append([])
 		for i in range(len(cf_data[k])):
 			cf_data[k][i] = np.array(cf_data[k][i])
-			cf_data_std[k][i] = np.std(cf_data[k][i][:,1])
-			cf_data[k][i] = np.mean(cf_data[k][i],axis=0)
+			cf_data_std[k][i] = np.sqrt(cf_data[k][i][2]/cf_data[k][i][3] - (cf_data[k][i][1]/cf_data[k][i][3])**2)
+			cf_data[k][i] = np.array([cf_data[k][i][0]/cf_data[k][i][3],cf_data[k][i][1]/cf_data[k][i][3]])
+			
 		cf_data[k] = np.array(cf_data[k])
 		cf_data_std[k] = np.array(cf_data_std[k])
 		cf_data_std[k] = cf_data_std[k].reshape(len(cf_data_std[k]),1)
@@ -122,10 +124,6 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,select='all'):
 				item = output[k][i]
 				f.write('{:<10}{:<20e}{:<20e}'.format(item[0],item[1],item[2]))
 			f.write('\n')
-		#for k in range(len(mode)):
-		#	for item in output[k]:
-		#		f.write('{:<10}{:<20.5f}{:20.5f}'.format(item[0],item[1],item[2]))
-		#	f.write('\n')
 
 	sys.stdout.write('Finished.\n')
 	sys.stdout.flush()
