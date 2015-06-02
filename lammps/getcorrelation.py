@@ -58,7 +58,7 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 	#else:
 	#	raise ValueError('Number of Snapshots analyzed must be a multiple of time_lapse')
 	time_init_lst = np.linspace(0,ave_freq*(len(timeselect)/ave_freq),len(timeselect)/ave_freq+1,dtype=int)
-	deltat = 0
+	deltat = 0.0
 	cf_data = []
 	cf_data_std = []
 	for item in mode:
@@ -68,6 +68,8 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 		cf_data_std[-1] = [[] for i in range(window+1)]
 	snap_init_lst = []
 
+	t10 = time.time()
+	sys.stdout.write('Start time {}\n'.format(t10))
 	for i in range(len(timeselect)):
 		t1 = time.time()
 		snap = f.nextSnap()
@@ -98,6 +100,9 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 		sys.stdout.write('Estimated finished time left: {}\n'.format((deltat/(i+1))*(len(timeselect)-i)))
 		sys.stdout.flush()
 
+	t20 = time.time()
+	sys.stdout.write('End time {}\n'.format(t20))
+	sys.stdout.write('Total time cost {}\n'.format(t20-t10))
 	sys.stdout.write('Total number of snapshots analyzed: {}\n'.format(len(timeselect)))
 	sys.stdout.flush()
 	sys.stdout.write('Start to write data into file\n')
@@ -122,7 +127,7 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 		for i in range(len(output[0])):
 			for k in range(len(mode)):
 				item = output[k][i]
-				f.write('{:<10}{:<20e}{:<20e}'.format(item[0],item[1],item[2]))
+				f.write('{:<20}{:<20e}{:<20e}'.format(item[0],item[1],item[2]))
 			f.write('\n')
 
 	sys.stdout.write('Finished.\n')
