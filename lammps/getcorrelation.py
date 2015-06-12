@@ -58,18 +58,16 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 	#else:
 	#	raise ValueError('Number of Snapshots analyzed must be a multiple of time_lapse')
 	time_init_lst = np.linspace(0,ave_freq*(len(timeselect)/ave_freq),len(timeselect)/ave_freq+1,dtype=int)
-	deltat = 0.0
+	deltat = 0
 	cf_data = []
 	cf_data_std = []
 	for item in mode:
 		cf_data.append([])
 		cf_data_std.append([])
-		cf_data[-1] = [np.array([0.0,0.0,0.0,0.0]) for i in range(window+1)]
+		cf_data[-1] = [np.array([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]) for i in range(window+1)]
 		cf_data_std[-1] = [[] for i in range(window+1)]
 	snap_init_lst = []
 
-	t10 = time.time()
-	sys.stdout.write('Start time {}\n'.format(t10))
 	for i in range(len(timeselect)):
 		t1 = time.time()
 		snap = f.nextSnap()
@@ -93,16 +91,13 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 				elif mode[k] == 'VACF':
 					data_temp = func_lst[k](snap[:,4:7],snap_init_lst[j][:,4:7])
 				if i - time_init_lst[j] <= window:
-					cf_data[k][i - time_init_lst[j]] += np.array([timeselect[i]-timeselect[time_init_lst[j]],data_temp,data_temp**2,1])
+					cf_data[k][i - time_init_lst[j]] += np.array([timeselect[i]-timeselect[time_init_lst[j]],data_temp[0],data_temp[1],data_temp[2],(data_temp**2)[0],(data_temp**2)[1],(data_temp**2)[2],1])
 
 		t2 = time.time()
 		deltat += t2 - t1
 		sys.stdout.write('Estimated finished time left: {}\n'.format((deltat/(i+1))*(len(timeselect)-i)))
 		sys.stdout.flush()
 
-	t20 = time.time()
-	sys.stdout.write('End time {}\n'.format(t20))
-	sys.stdout.write('Total time cost {}\n'.format(t20-t10))
 	sys.stdout.write('Total number of snapshots analyzed: {}\n'.format(len(timeselect)))
 	sys.stdout.flush()
 	sys.stdout.write('Start to write data into file\n')
@@ -113,12 +108,15 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 		output.append([])
 		for i in range(len(cf_data[k])):
 			cf_data[k][i] = np.array(cf_data[k][i])
-			cf_data_std[k][i] = np.sqrt(cf_data[k][i][2]/cf_data[k][i][3] - (cf_data[k][i][1]/cf_data[k][i][3])**2)
-			cf_data[k][i] = np.array([cf_data[k][i][0]/cf_data[k][i][3],cf_data[k][i][1]/cf_data[k][i][3]])
+                        temp_std1 = np.sqrt(cf_data[k][i][4]/cf_data[k][i][-1] - (cf_data[k][i][1]/cf_data[k][i][-1])**2)
+                        temp_std2 = np.sqrt(cf_data[k][i][5]/cf_data[k][i][-1] - (cf_data[k][i][2]/cf_data[k][i][-1])**2)
+                        temp_std3 = np.sqrt(cf_data[k][i][6]/cf_data[k][i][-1] - (cf_data[k][i][3]/cf_data[k][i][-1])**2)
+			cf_data_std[k][i] = np.array([temp_std1,temp_std2,temp_std3])
+			cf_data[k][i] = np.array([cf_data[k][i][0]/cf_data[k][i][-1],cf_data[k][i][1]/cf_data[k][i][-1],cf_data[k][i][2]/cf_data[k][i][-1],cf_data[k][i][3]/cf_data[k][i][-1]])
 			
 		cf_data[k] = np.array(cf_data[k])
 		cf_data_std[k] = np.array(cf_data_std[k])
-		cf_data_std[k] = cf_data_std[k].reshape(len(cf_data_std[k]),1)
+		#cf_data_std[k] = cf_data_std[k].reshape(len(cf_data_std[k]),1)
 		output[k] = np.hstack((cf_data[k],cf_data_std[k]))
 
 
@@ -127,7 +125,7 @@ def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
 		for i in range(len(output[0])):
 			for k in range(len(mode)):
 				item = output[k][i]
-				f.write('{:<20}{:<20e}{:<20e}'.format(item[0],item[1],item[2]))
+				f.write('{:<20e}{:<20e}{:<20e}{:<20e}{:<20e}{:<20e}{:<20e}'.format(item[0],item[1],item[2],item[3],item[4],item[5],item[6]))
 			f.write('\n')
 
 	sys.stdout.write('Finished.\n')

@@ -15,7 +15,11 @@ def rdf(dist,n_bins,r_cut,N_a,rou_b):
 	return g,bins_edge
 
 def msd(snap_init,snap_t):
-	return np.sum(np.mean(np.power(snap_t-snap_init,2),axis=0))
+        center_mass_init = np.mean(snap_init,axis=0)
+        center_mass_t = np.mean(snap_t,axis=0)
+        snap_t_center = snap_t - center_mass_t
+        snap_init_center = snap_init - center_mass_init
+	return np.array([np.sum(np.mean(np.power(snap_t-snap_init,2),axis=0)), np.sum(np.mean(np.power(snap_t_center - snap_init_center,2),axis=0)), np.sum(np.power(center_mass_t - center_mass_init,2))])
 
 def vacf(snap_init,snap_t):
 	return np.mean(np.sum(snap_t*snap_init,axis=1))
