@@ -1,6 +1,6 @@
 import numpy as np
 
-__all__ = ['rdf','msd','vacf']
+__all__ = ['rdf','msd','vacf','optimal_rotate']
 
 def rdf(dist,n_bins,r_cut,N_a,rou_b):
 	
@@ -23,3 +23,35 @@ def msd(snap_init,snap_t):
 
 def vacf(snap_init,snap_t):
 	return np.mean(np.sum(snap_t*snap_init,axis=1))
+
+def optimal_rotate(P,Q):
+	# P and Q are two sets of vectors
+	P = np.matrix(P)
+	Q = np.matrix(Q)
+
+	assert P.shape == Q.shape
+
+	Qc = np.mean(Q,axis=0)
+
+	P = P - np.mean(P,axis=0)
+	Q = Q - np.mean(Q,axis=0)
+
+	# calculate covariance matrix A = (P^T)Q
+	A = P.T * Q
+
+	# SVD for matrix A
+	V, S, Wt = np.linalg.svd(A)
+
+	# correct rotation matrix to ensure a right-handed system if necessary
+	d = (np.linalg.det(V) * np.linalg.det(Wt)) < 0.0
+
+	if d:
+		S[-1] = -S[-1]
+		V[:,-1] = -V[:,-1]
+
+	# calculate the final rotation matrix U
+	U = V * Wt
+
+	return P * U + Qc
+
+
