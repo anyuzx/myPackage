@@ -11,7 +11,8 @@ class data:
 						  'self-avoiding chain':'lattice_chain',\
 						  'lennard-jones polymer':'lj_chain','lennard-jones WLC polymer':'lj_wlc',\
 						  'Rosette Loop Model polymer':'RSM_chain','Linear Loop Model polymer':'LLM_chain',\
-						  'Cross Loop Model polymer':'CLM_chain','Fractal Loop Model polymer':'FLM_chain'}
+						  'Cross Loop Model polymer':'CLM_chain','Fractal Loop Model polymer':'FLM_chain',\
+						  'Loop/Epigenetic polymer':'LEM_chain'}
 		
 	def available_models(self):
 		string = ''

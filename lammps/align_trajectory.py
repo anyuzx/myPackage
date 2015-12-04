@@ -37,6 +37,8 @@ def init_dump(finname,select):
 	return f, timeselect, index
 
 def Align(finname,foutname,select = 'all'):
+	sys.stdout.write('Analysing file:{}\n'.format(finname))
+	sys.stdout.flush()
 	f, timeselect, index = init_dump(finname,select)
 
 	snap0 = f.nextSnap()
@@ -104,10 +106,3 @@ def Align(finname,foutname,select = 'all'):
 		sys.stdout.flush()
 		sys.stdout.write('Finished\n')
 		sys.stdout.flush()
-
-
-
-
-
-
-

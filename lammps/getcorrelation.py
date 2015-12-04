@@ -43,6 +43,8 @@ def init_dump(finname,mode,select):
 	return f,timeselect,index
 
 def ProcessDumpCorrelation(finname,foutname,mode,ave_freq,window,select='all'):
+	sys.stdout.write('Analysing file:{}\n'.format(finname))
+	sys.stdout.flush()
 	func_lst = []
 	for item in mode:
 		if item == 'MSD':
