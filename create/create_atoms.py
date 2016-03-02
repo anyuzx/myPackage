@@ -3,11 +3,50 @@ import pandas as pd
 #import matplotlib.pyplot as plt
 #from mpl_toolkits.mplot3d import Axes3D
 
+# ------------------------------------------------------------
+# create random particles on lattice
+# ------------------------------------------------------------
+
+# ------------------------------------------------------------
+# Usage:
+#       myPackage.create.create_atoms.create_atoms(atom_array, box_dimension, \
+#                                                  lattice_constant, \
+#                                                  initial array)
+#       atom_array: int array
+#          array of all types of particles
+#          Ex. [1000,500] means create 1000 atoms of type 1 and 500 type 2 atoms
+#       box_dimension: float array
+#          the dimension of box you want put the particles in
+#       lattice_constant: float
+#          lattice constant. the size of lattice
+#       initial array: float array
+#          if there is already particles in the system, specify it
+#
+# Example:
+#       import numpy as np
+#       import myPackage as mp
+#       mp.create.create_atoms.create_atoms([10,10],\
+#                                            box_dimension = [[0,100],[0,100],\
+#                                                            [0,100]],\
+#                                            lattice_constant = 1.13)
+#       mp.create.create_atoms.create_atoms([10,10],\
+#                                            box_dimension = [[0,100],[0,100],\
+#                                                            [0,100]],\
+#                                            lattice_constant = 1.13,\
+#                                            initial = [[1,1,1],[2,2,2],[3,3,3]])
+#
+# second command means that there are already three particles whose position are
+# [1,1,1],[2,2,2] and [3,3,3] in the box. so the code will make sure that the
+# particles generated will not overlap with these existing particles.
+# ------------------------------------------------------------
+
+# this function gives non-duplicated numpy array from a duplicated array
 def unique_rows(a):
     a = np.ascontiguousarray(a)
     unique_a = np.unique(a.view([('', a.dtype)]*a.shape[1]))
     return unique_a.view(a.dtype).reshape((unique_a.shape[0], a.shape[1]))
 
+# this function generate random position on lattice
 def make_point(box_dimension, lattice_constant):
     nx = (box_dimension[0,1] - box_dimension[0,0])/lattice_constant
     ny = (box_dimension[1,1] - box_dimension[1,0])/lattice_constant
@@ -20,6 +59,7 @@ def make_point(box_dimension, lattice_constant):
     z = box_dimension[2,0] + (z-1)*lattice_constant
     return np.array([x,y,z])
 
+# this function check whether any two points are at the same location
 def check_duplicate(point_coord, points_array):
     if len(points_array) != 0:
         old = np.vstack((points_array, point_coord))
@@ -31,6 +71,7 @@ def check_duplicate(point_coord, points_array):
     else:
         return 'no duplicate'
 
+# create atoms on lattice randomly.
 def create_atoms(atom_array, box_dimension, lattice_constant, initial = np.array([])):
     box_dimension = np.array(box_dimension)
     atom_array = np.array(atom_array)
@@ -65,16 +106,5 @@ def create_atoms(atom_array, box_dimension, lattice_constant, initial = np.array
                            'atom_index':np.arange(1,len(bind_atom_config)+1),
                            'x':bind_atom_config[:,1],
                            'y':bind_atom_config[:,2],
-                           'z':bind_atom_config[:,3]}) 
+                           'z':bind_atom_config[:,3]})
     return bind_atom_config
-
-'''
-# test
-config = create_atoms(atom_array = [1000,1000], box_dimension = [[0,100],[0,100],[0,100]],lattice_constant = 1.13)
-
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(config[config.atom_type == 1]['x'].values,config[config.atom_type == 1]['y'].values, config[config.atom_type == 1]['z'].values,c='r')
-ax.scatter(config[config.atom_type == 2]['x'].values,config[config.atom_type == 2]['y'].values, config[config.atom_type == 2]['z'].values,c='b')
-plt.show()
-'''

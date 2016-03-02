@@ -4,4 +4,5 @@ from . import analysis
 from . import create
 from . import lammps
 
-__version__ = 0.02
+
+__version__ = 0.03
