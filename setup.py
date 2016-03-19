@@ -52,7 +52,7 @@ elif _platform == 'darwin':
 
 setup(
 	name = 'myPackage',
-	version = '0.0.1',
+	version = '0.0.6',
 	author = 'Guang Shi',
 	author_email = 'stefanshi1988@gmail.com',
 	description = ('A collection of tools I used in the research'),
