@@ -29,7 +29,7 @@ if _platform == 'linux' or _platform == 'linux2':
 							  libraries=['m']),
 	               Extension('create._lattice_chain',
 	                          sources = ['src/_lattice_chain.pyx','src/c_lattice_chain.cpp'],
-	                          extra_compile_args=['-std=c++11'],
+	                          extra_compile_args=['-std=c++11', '-static-libstdc++'],
 	                          language='c++',
 	                          libraries = ['m'],
 	                          include_dirs = [numpy.get_include()])]
